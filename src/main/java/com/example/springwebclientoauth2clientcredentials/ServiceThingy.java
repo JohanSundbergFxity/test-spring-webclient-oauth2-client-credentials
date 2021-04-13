@@ -6,28 +6,28 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import static org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId;
+
 @Service
 public class ServiceThingy {
 
     private final Logger log = LoggerFactory.getLogger(ServiceThingy.class);
 
-    private WebClient.Builder webClientBuilder;
+    private final WebClient webClient;
 
-    public ServiceThingy(WebClient.Builder wcb) {
-        this.webClientBuilder = wcb;
+    public ServiceThingy(WebClient webClient) {
+        this.webClient = webClient;
     }
 
     public void test() {
 
-        webClientBuilder.build()
+        var asd = this.webClient
                 .get()
-                .uri("https://asd")
-//                .attributes(WebClientSecurityConfig.getExchangeFilterWith("myclient"))
-//                .accept(MediaType.APPLICATION_STREAM_JSON)
+                .uri("asd.com")
+                .attributes(clientRegistrationId("myclient"))
                 .retrieve()
-                .bodyToMono(String.class)
-                .map(string -> "We retrieved the following resource using Client Credentials Grant Type: " + string)
-                .subscribe(log::info);
+                .bodyToMono(String.class);
 
+        log.info("asd = " + asd);
     }
 }
