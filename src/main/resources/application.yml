@@ -1,0 +1,20 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          myclient:
+            authorization-grant-type: client_credentials
+            provider: myclient
+            client-id: my-client-id
+            client-secret: my-client-secret
+            scope: my-scopes
+#            redirect-uri: NOT-SET
+
+        provider:
+          myclient:
+            token-uri: https://token-uri
+
+logging.level:
+  org.springframework.security: TRACE
+  org.springframework.web: TRACE
